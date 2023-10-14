@@ -3,18 +3,28 @@ import { ref } from 'vue'
 import { NModal, NCard, NUpload, NButton } from 'naive-ui'
 import BaseLoader from '@/components/BaseLoader.vue'
 import { useImageStore } from '@/stores/useImageStore'
+import fakeAnswer from '@/assets/placeholder.json'
 
 const isShown = ref(true)
 
 const imageStore = useImageStore()
 
-const handleUpload = ({ file }) => {
+const handleUpload = async ({ file }) => {
     imageStore.startLoading()
     imageStore.setImage(file)
 
-    setTimeout(() => {
-        imageStore.stopLoading()
-    }, 3000)
+    const promise = new Promise((resolve) => {
+        setTimeout(() => {
+            resolve({
+                data: fakeAnswer
+            })
+        }, 3000)
+    })
+
+    const data = (await promise).data
+    imageStore.setResult(data)
+
+    imageStore.stopLoading()
 }
 </script>
 

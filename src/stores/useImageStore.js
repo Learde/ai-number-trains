@@ -1,9 +1,10 @@
-import { ref, computed, warn } from 'vue'
+import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useImageStore = defineStore('image', () => {
     const image = ref(null)
     const imageURL = ref(null)
+    const result = ref(null)
     const isLoading = ref(false)
 
     const hasImage = computed(() => {
@@ -11,7 +12,7 @@ export const useImageStore = defineStore('image', () => {
     })
 
     const hasResult = computed(() => {
-        return Boolean(imageURL.value) && !isLoading.value
+        return Boolean(imageURL.value) && !isLoading.value && Boolean(result.value)
     })
 
     function startLoading() {
@@ -27,6 +28,10 @@ export const useImageStore = defineStore('image', () => {
         renderImage(img.file)
     }
 
+    function setResult(res) {
+        result.value = res
+    }
+
     function renderImage(file) {
         const fileReader = new FileReader()
 
@@ -37,5 +42,16 @@ export const useImageStore = defineStore('image', () => {
         fileReader.readAsDataURL(file)
     }
 
-    return { image, imageURL, isLoading, hasResult, setImage, hasImage, startLoading, stopLoading }
+    return {
+        image,
+        imageURL,
+        isLoading,
+        hasResult,
+        setImage,
+        hasImage,
+        startLoading,
+        stopLoading,
+        result,
+        setResult
+    }
 })
