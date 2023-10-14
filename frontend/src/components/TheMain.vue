@@ -11,10 +11,10 @@ const imageStore = useImageStore()
             <template #header>Результат на изображении</template>
             <img v-if="imageStore.imageURL" :src="imageStore.imageURL" />
         </NCard>
-        <NCard class="main-content-result">
-            <template #header>Результаты</template>
-        </NCard>
     </div>
+    <NCard class="main-content-result">
+        <template #header>Результаты</template>
+    </NCard>
     <NCard class="json-content" v-if="imageStore.hasResult">
         <template #header>Результат (json)</template>
         <NCode :code="imageStore.resultJSON" language="json" />
