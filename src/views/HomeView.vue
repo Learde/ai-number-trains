@@ -1,9 +1,9 @@
 <script setup>
-import TheWelcome from '../components/TheWelcome.vue'
+import TheMain from '@/components/TheMain.vue'
+import UploadImageModal from '@/components/UploadImageModal.vue'
 </script>
 
 <template>
-  <main>
-    <TheWelcome />
-  </main>
+    <TheMain />
+    <UploadImageModal />
 </template>
