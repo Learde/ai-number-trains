@@ -1,5 +1,5 @@
 <script setup>
-import { NCard } from 'naive-ui'
+import { NCard, NCode } from 'naive-ui'
 import { useImageStore } from '@/stores/useImageStore'
 
 const imageStore = useImageStore()
@@ -15,6 +15,10 @@ const imageStore = useImageStore()
             <template #header>Результаты</template>
         </NCard>
     </div>
+    <NCard class="json-content" v-if="imageStore.hasResult">
+        <template #header>Результат (json)</template>
+        <NCode :code="imageStore.resultJSON" language="json" />
+    </NCard>
 </template>
 
 <style>
@@ -24,6 +28,8 @@ const imageStore = useImageStore()
     flex-wrap: nowrap;
 
     gap: 20px;
+
+    margin-bottom: 20px;
 }
 
 .main-content-image {

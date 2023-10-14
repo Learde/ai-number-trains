@@ -15,6 +15,11 @@ export const useImageStore = defineStore('image', () => {
         return Boolean(imageURL.value) && !isLoading.value && Boolean(result.value)
     })
 
+    const resultJSON = computed(() => {
+        if (!result.value) return ''
+        return JSON.stringify(result.value, null, 4)
+    })
+
     function startLoading() {
         isLoading.value = true
     }
@@ -52,6 +57,7 @@ export const useImageStore = defineStore('image', () => {
         startLoading,
         stopLoading,
         result,
+        resultJSON,
         setResult
     }
 })

@@ -26,6 +26,8 @@ body {
     sans-serif;
   font-size: 15px;
   line-height: 1.6;
+
+background-color: rgb(16 16 20);
   text-rendering: optimizelegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
