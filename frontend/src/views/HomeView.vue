@@ -18,4 +18,10 @@ const imageStore = useImageStore()
 .home-view {
     padding: 25px;
 }
+
+@media (max-width: 600px) {
+    .home-view {
+        padding: 10px;
+    }
+}
 </style>
