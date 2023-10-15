@@ -3,7 +3,6 @@ import { ref } from 'vue'
 import { NModal, NCard, NUpload, NButton } from 'naive-ui'
 import BaseLoader from '@/components/BaseLoader.vue'
 import { useImageStore } from '@/stores/useImageStore'
-import fakeAnswer from '@/assets/placeholder.json'
 
 const isShown = ref(true)
 
@@ -13,17 +12,17 @@ const handleUpload = async ({ file }) => {
     imageStore.startLoading()
     imageStore.setImage(file)
 
-    const promise = new Promise((resolve) => {
-        setTimeout(() => {
-            resolve({
-                data: fakeAnswer
-            })
-        }, 3000)
+    console.log(imageStore.image.file)
+    const formData = new FormData();
+    formData.append("file", imageStore.image.file)
+    const response = await fetch("https://6ffa-83-239-50-130.ngrok.io/", {
+        method: 'POST',
+        body: formData
     })
 
-    const data = (await promise).data
+    const data = await response.json()
+    console.log(data)
     imageStore.setResult(data)
-
     imageStore.stopLoading()
 }
 </script>
