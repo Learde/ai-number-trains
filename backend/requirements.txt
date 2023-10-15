@@ -4,4 +4,5 @@ fastapi[all]==0.89.1
 loguru
 pytest
 pytest-cov
-ultralytics==8.0.42
+ultralytics
+Roboflow
