@@ -14,6 +14,7 @@ const handleUpload = async ({ file }) => {
         imageStore.startLoading()
         imageStore.setImage(file)
 
+<<<<<<< HEAD
     console.log(imageStore.image.file)
     const formData = new FormData();
     formData.append("file", imageStore.image.file)
@@ -21,6 +22,14 @@ const handleUpload = async ({ file }) => {
         method: 'POST',
         body: formData
     })
+=======
+        const formData = new FormData()
+        formData.append('file', imageStore.image.file)
+        const response = await fetch('http://84.201.128.183/api', {
+            method: 'POST',
+            body: formData
+        })
+>>>>>>> e0256fa36616a5fbab5703008cd815dcda1dae38
 
         const data = await response.json()
 
