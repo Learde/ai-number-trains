@@ -15,7 +15,7 @@ const handleUpload = async ({ file }) => {
     console.log(imageStore.image.file)
     const formData = new FormData();
     formData.append("file", imageStore.image.file)
-    const response = await fetch("https://6ffa-83-239-50-130.ngrok.io/", {
+    const response = await fetch("http://84.201.128.183/api", {
         method: 'POST',
         body: formData
     })
