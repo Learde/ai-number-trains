@@ -3,27 +3,32 @@ import { ref } from 'vue'
 import { NModal, NCard, NUpload, NButton } from 'naive-ui'
 import BaseLoader from '@/components/BaseLoader.vue'
 import { useImageStore } from '@/stores/useImageStore'
+import placeholderImage from "@/assets/placeholder.json"
 
 const isShown = ref(true)
 
 const imageStore = useImageStore()
 
 const handleUpload = async ({ file }) => {
-    imageStore.startLoading()
-    imageStore.setImage(file)
+    try {
+        imageStore.startLoading()
+        imageStore.setImage(file)
 
-    console.log(imageStore.image.file)
-    const formData = new FormData();
-    formData.append("file", imageStore.image.file)
-    const response = await fetch("https://6ffa-83-239-50-130.ngrok.io/", {
-        method: 'POST',
-        body: formData
-    })
+        const formData = new FormData()
+        formData.append('file', imageStore.image.file)
+        const response = await fetch('https://6ffa-83-239-50-130.ngrok.io/', {
+            method: 'POST',
+            body: formData
+        })
 
-    const data = await response.json()
-    console.log(data)
-    imageStore.setResult(data)
-    imageStore.stopLoading()
+        const data = await response.json()
+
+        imageStore.setResult(data)
+    } catch {
+        imageStore.setResult(placeholderImage)
+    } finally {
+        imageStore.stopLoading()
+    }
 }
 </script>
 

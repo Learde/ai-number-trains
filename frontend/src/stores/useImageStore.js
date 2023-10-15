@@ -17,7 +17,18 @@ export const useImageStore = defineStore('image', () => {
 
     const resultJSON = computed(() => {
         if (!result.value) return ''
-        return JSON.stringify(result.value, null, 4)
+        const tabSize = document.documentElement.clientWidth > 700 ? 4 : 2
+        return JSON.stringify(result.value, null, tabSize)
+    })
+
+    const actualImageWidth = computed(() => {
+        if (!hasResult.value) return
+        return result.value.numbers?.at(0)?.img_width
+    })
+
+    const actualImageHeight = computed(() => {
+        if (!hasResult.value) return
+        return result.value.numbers?.at(0)?.img_height
     })
 
     function startLoading() {
@@ -47,6 +58,13 @@ export const useImageStore = defineStore('image', () => {
         fileReader.readAsDataURL(file)
     }
 
+    function reset() {
+        image.value = null
+        imageURL.value = null
+        result.value = null
+        isLoading.value = false
+    }
+
     return {
         image,
         imageURL,
@@ -58,6 +76,9 @@ export const useImageStore = defineStore('image', () => {
         stopLoading,
         result,
         resultJSON,
-        setResult
+        setResult,
+        actualImageWidth,
+        actualImageHeight,
+        reset
     }
 })
