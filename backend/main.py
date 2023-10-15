@@ -3,12 +3,14 @@ from io import BytesIO
 from fastapi import FastAPI, File, UploadFile
 import random
 import datetime
+from fastapi.openapi.docs import get_swagger_ui_html
+
 
 app = FastAPI()
 
 origins = [
     "http://localhost",
-    "http://localhost:8008",
+    "http://localhost:8001",
     "*"
 ]
 
@@ -20,7 +22,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.post("/")
+@app.get("/api/docs")
+def read_docs():
+    return get_swagger_ui_html(title='title', openapi_url="/openapi.json")
+
+@app.post("/api")
 def upload(file: UploadFile = File(...)):
 
     result = {}
@@ -118,3 +124,5 @@ def upload(file: UploadFile = File(...)):
     result["timestamp"] = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
 
     return result
+
+
